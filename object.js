@@ -21,6 +21,7 @@ let person = {
     name: 'pnlinh',
     age: 24,
     email: 'pnlinh1207@gmail.com',
+    'full name': 'Ngoc Linh Pham',
     // Basic syntax
     registerACourse: (courseName) => {
         console.log(`I has registered a course ${courseName}`);
@@ -32,9 +33,28 @@ let person = {
     // Old syntax
     getGirlFriend: function (name) {
         console.log(`I has a girl friend ${name}`);
+    },
+    // Parameter context
+    tellAStory({storyName}) {
+        console.log(`I tell a story name: \"${storyName}\"`);
     }
 };
 
 person.registerACourse('NodeJS');
 person.buySmartPhone('Iphone X');
 person.getGirlFriend('No Name');
+console.log(`Full name: ${person['full name']}`);
+
+// Old syntax :(
+/*let name = person.name;
+let age = person.age;*/
+
+// Use destructing assignment
+let {name, age, firstName = ''} = person;
+console.log(`Name: ${name}, Age: ${age}, First name: ${firstName}`);
+
+// Destructing assignment and change property
+let {name: ten, age: tuoi} = person;
+console.log(`Ten: ${ten}, Tuoi: ${tuoi}`);
+
+person.tellAStory({storyName: 'How to train your girl friend'});
