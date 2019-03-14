@@ -54,6 +54,8 @@ const doTaskA = (taskName) => {
         // Reject if callback excute fail
 
         setTimeout(() => {
+            console.log('Done task A');
+
             if (taskName === '') {
                 reject('Task name is required\n');
             } else {
@@ -63,6 +65,28 @@ const doTaskA = (taskName) => {
     });
 };
 
-doTaskA('Make coffee')
+const doTaskB = (taskName) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Done task B');
+
+            resolve({a: 11, b: 22});
+        }, 2000);
+    });
+};
+
+/*doTaskA('Make coffee')
     .then(result => console.log(`Success: ${JSON.stringify(result)}`))
-    .catch(error => console.log(`Error: ${error}`));
+    .catch(error => console.log(`Error: ${error}`));*/
+
+// Task A done to Task B = async
+async function doSomeTasks(taskName1, taskName2) {
+    try {
+        await doTaskA(taskName1);
+        await doTaskB(taskName2);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+doSomeTasks('Boil water', 'Make coffee');
